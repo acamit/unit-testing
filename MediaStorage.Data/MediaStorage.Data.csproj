@@ -121,6 +121,7 @@
     <Compile Include="Read\UserReadRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
+    <Compile Include="IRepository\IDepartmentRepository.cs" />
     <Compile Include="Repository\LibraryRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

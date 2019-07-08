@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MediaStorage.Common.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace MediaStorage.Common
 {
-    public class Logger
+    public class Logger : ILogger
     {
         string path = System.Reflection.Assembly.GetEntryAssembly().Location + "log.txt";
         private void Write(string message)
@@ -33,7 +34,7 @@ namespace MediaStorage.Common
         {
             Write(message);
         }
-               
+
         public void Error(string message, Exception ex = null, string filePath = "", string methodname = "", int sourceLineNumber = 0, string loggerName = "", IDictionary<string, string> properties = null)
         {
             Write(message);

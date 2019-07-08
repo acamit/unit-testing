@@ -87,6 +87,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CustomSelectListItem.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

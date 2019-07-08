@@ -1,11 +1,11 @@
 ﻿namespace MediaStorage.Service
 {
     using MediaStorage.Common;
+    using MediaStorage.Common.Interfaces;
     using MediaStorage.Common.ViewModels.Department;
     using MediaStorage.Data.Read;
     using MediaStorage.Data.Repository;
     using MediaStorage.Data.Write;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -13,19 +13,19 @@
 
     public class DepartmentService
     {
-        private DepartmentRepository departmentRepository;
-        private Logger logger;
+        private IDepartmentRepository _departmentRepository;
+        private ILogger _logger;
 
-        public DepartmentService()
+        public DepartmentService(ILogger logger, IDepartmentRepository departmentRepository)
         {
-            departmentRepository = new DepartmentRepository();
-            logger = new Logger();
+            _departmentRepository = departmentRepository;
+            _logger = logger;
         }
 
         public async Task<List<DepartmentListViewModel>> GetAllDepartments()
         {
-            departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
-            var departments = await departmentRepository.DepartmentReadRepository.GetAllDepartments();
+            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
+            var departments = await _departmentRepository.DepartmentReadRepository.GetAllDepartments();
             if (departments == null || !departments.Any())
             {
                 throw new ResourceNotFoundException(NoRecordsExists);
@@ -35,8 +35,8 @@
 
         public async Task<List<DepartmentListViewModel>> GetDepartmentsByLibraryId(int libraryId)
         {
-            departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
-            var departments = await departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(libraryId);
+            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
+            var departments = await _departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(libraryId);
             if (departments == null || !departments.Any())
             {
                 throw new ResourceNotFoundException(NoRecordsExists);
@@ -46,12 +46,12 @@
 
         public async Task<DepartmentViewModel> GetDepartmentById(int id)
         {
-            departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
-            var department = await departmentRepository.DepartmentReadRepository.GetDepartmentById(id);
+            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
+            var department = await _departmentRepository.DepartmentReadRepository.GetDepartmentById(id);
 
             if (department == null)
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return department;
@@ -65,8 +65,8 @@
 
         public async Task<ServiceResult> AddDepartment(DepartmentViewModel entity)
         {
-            departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
-            var id = await departmentRepository.DepartmentWriteRepository.AddDepartment(entity);
+            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
+            var id = await _departmentRepository.DepartmentWriteRepository.AddDepartment(entity);
             ServiceResult result = new ServiceResult() { Id = id };
             if (id < 0)
             {
@@ -81,8 +81,8 @@
 
         public async Task<ServiceResult> UpdateDepartment(DepartmentViewModel entity)
         {
-            departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
-            var isUpdated = await departmentRepository.DepartmentWriteRepository.UpdateDepartment(entity);
+            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
+            var isUpdated = await _departmentRepository.DepartmentWriteRepository.UpdateDepartment(entity);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
@@ -97,8 +97,8 @@
 
         public async Task<ServiceResult> RemoveDepartment(int id)
         {
-            departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
-            var isUpdated = await departmentRepository.DepartmentWriteRepository.DeleteDepartment(id);
+            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
+            var isUpdated = await _departmentRepository.DepartmentWriteRepository.DeleteDepartment(id);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
