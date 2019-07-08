@@ -24,7 +24,6 @@
 
         public async Task<List<DepartmentListViewModel>> GetAllDepartments()
         {
-            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
             var departments = await _departmentRepository.DepartmentReadRepository.GetAllDepartments();
             if (departments == null || !departments.Any())
             {
@@ -35,7 +34,6 @@
 
         public async Task<List<DepartmentListViewModel>> GetDepartmentsByLibraryId(int libraryId)
         {
-            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
             var departments = await _departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(libraryId);
             if (departments == null || !departments.Any())
             {

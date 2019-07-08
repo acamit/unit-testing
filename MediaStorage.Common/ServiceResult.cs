@@ -1,6 +1,6 @@
 ﻿namespace MediaStorage.Common
 {
-    public class ServiceResult
+    public class ServiceResult : IServiceResult
     {
         public ServiceResult() { }
 

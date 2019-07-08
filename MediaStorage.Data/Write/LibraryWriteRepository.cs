@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Write
 {
-    public class LibraryWriteRepository
+    public class LibraryWriteRepository : ILibraryWriteRepository
     {
         public async Task<int> AddLibrary(LibraryViewModel entity)
         {

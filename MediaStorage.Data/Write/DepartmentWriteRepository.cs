@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Write
 {
-    public class DepartmentWriteRepository
+    public class DepartmentWriteRepository : IDepartmentWriteRepository
     {
         public async Task<int> AddDepartment(DepartmentViewModel entity)
         {

@@ -117,16 +117,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Read\CategoryReadRepository.cs" />
     <Compile Include="Read\DepartmentReadRepository.cs" />
+    <Compile Include="Interfaces\IRead\IDepartmentReadRepository.cs" />
+    <Compile Include="Interfaces\IRead\ILibraryReadRepository.cs" />
     <Compile Include="Read\LibraryReadRepository.cs" />
     <Compile Include="Read\UserReadRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
-    <Compile Include="IRepository\IDepartmentRepository.cs" />
+    <Compile Include="Interfaces\IRepository\IDepartmentRepository.cs" />
+    <Compile Include="Interfaces\IRepository\ILibraryRepository.cs" />
     <Compile Include="Repository\LibraryRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Write\CategoryWriteRepository.cs" />
     <Compile Include="Write\DepartmentWriteRepository.cs" />
+    <Compile Include="Interfaces\IWrite\IDepartmentWriteRepository.cs" />
+    <Compile Include="Interfaces\IWrite\ILibraryWriteRepository.cs" />
     <Compile Include="Write\LibraryWriteRepository.cs" />
     <Compile Include="Write\UserWriteRepository.cs" />
   </ItemGroup>

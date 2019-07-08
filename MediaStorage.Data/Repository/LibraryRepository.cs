@@ -3,9 +3,15 @@ using MediaStorage.Data.Write;
 
 namespace MediaStorage.Data.Repository
 {
-    public class LibraryRepository
+    public class LibraryRepository : ILibraryRepository
     {
-        public LibraryReadRepository LibraryReadRepository = new LibraryReadRepository();
-        public LibraryWriteRepository LibraryWriteRepository = new LibraryWriteRepository();
+        public ILibraryReadRepository LibraryReadRepository { get; set; }
+        public ILibraryWriteRepository LibraryWriteRepository { get; set; }
+
+        public LibraryRepository(ILibraryReadRepository libraryReadRepository, ILibraryWriteRepository libraryWriteRepository)
+        {
+            LibraryReadRepository = libraryReadRepository;
+            LibraryWriteRepository = LibraryWriteRepository;
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace MediaStorage.Data.Repository
 {
     public interface IDepartmentRepository
     {
-        DepartmentReadRepository DepartmentReadRepository { get; set; }
-        DepartmentWriteRepository DepartmentWriteRepository { get; set; }
+        IDepartmentReadRepository DepartmentReadRepository { get; set; }
+        IDepartmentWriteRepository DepartmentWriteRepository { get; set; }
     }
 }

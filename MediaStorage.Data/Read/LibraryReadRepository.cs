@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Read
 {
-    public class LibraryReadRepository
+    public class LibraryReadRepository : ILibraryReadRepository
     {
         public async Task<List<LibraryViewModel>> GetAllLibraries()
         {

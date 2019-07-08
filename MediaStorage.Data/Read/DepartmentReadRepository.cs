@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class DepartmentReadRepository
+    public class DepartmentReadRepository : IDepartmentReadRepository
     {
         public async Task<List<DepartmentListViewModel>> GetAllDepartments()
         {

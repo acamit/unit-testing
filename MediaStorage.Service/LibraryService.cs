@@ -1,6 +1,7 @@
 ﻿using MediaStorage.Common;
 namespace MediaStorage.Service
 {
+    using MediaStorage.Common.Interfaces;
     using MediaStorage.Common.ViewModels.Library;
     using MediaStorage.Data.Repository;
     using System;
@@ -12,22 +13,24 @@ namespace MediaStorage.Service
     public class LibraryService
     {
 
-        private LibraryRepository libraryRepository;
-        private DepartmentRepository departmentRepository;
-        private Logger logger;
+        private ILibraryRepository _libraryRepository;
+        private IDepartmentRepository _departmentRepository;
+        private ILogger _logger;
 
-        public LibraryService()
+        
+        public LibraryService(ILibraryRepository libraryRepository, IDepartmentRepository departmentRepository, Logger logger)
         {
-            logger = new Logger();
+            _libraryRepository = libraryRepository;
+            _departmentRepository = departmentRepository;
+            _logger = logger;
         }
 
         public async Task<List<LibraryViewModel>> GetAllLibraries()
         {
-            libraryRepository = new LibraryRepository();
-            var libraries = await libraryRepository.LibraryReadRepository.GetAllLibraries();
+            var libraries = await _libraryRepository.LibraryReadRepository.GetAllLibraries();
             if (libraries == null || !libraries.Any())
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return libraries;
@@ -35,11 +38,10 @@ namespace MediaStorage.Service
         
         public async Task<List<CustomSelectListItem>> GetLibrariesAsSelectListItem(int? departmentId)
         {
-            libraryRepository = new LibraryRepository();
-            var libraries = await libraryRepository.LibraryReadRepository.GetLibrariesAsSelectListItem(departmentId);
+            var libraries = await _libraryRepository.LibraryReadRepository.GetLibrariesAsSelectListItem(departmentId);
             if (libraries == null || !libraries.Any())
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return libraries;
@@ -47,12 +49,11 @@ namespace MediaStorage.Service
 
         public async Task<LibraryViewModel> GetLibraryById(int id)
         {
-            libraryRepository = new LibraryRepository();
-            var library = await libraryRepository.LibraryReadRepository.GetLibraryById(id);
+            var library = await _libraryRepository.LibraryReadRepository.GetLibraryById(id);
 
             if (library == null)
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return library;
@@ -60,8 +61,7 @@ namespace MediaStorage.Service
 
         public async Task<ServiceResult> AddLibrary(LibraryViewModel entity)
         {
-            libraryRepository = new LibraryRepository();
-            var id = await libraryRepository.LibraryWriteRepository.AddLibrary(entity);
+            var id = await _libraryRepository.LibraryWriteRepository.AddLibrary(entity);
             ServiceResult result = new ServiceResult();
             result.Id = id;
             if (id < 0)
@@ -77,8 +77,7 @@ namespace MediaStorage.Service
 
         public async Task<ServiceResult> UpdateLibrary(LibraryViewModel entity)
         {
-            libraryRepository = new LibraryRepository();
-            var isUpdated = await libraryRepository.LibraryWriteRepository.UpdateLibrary(entity);
+            var isUpdated = await _libraryRepository.LibraryWriteRepository.UpdateLibrary(entity);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
@@ -93,18 +92,17 @@ namespace MediaStorage.Service
 
         public async Task<ServiceResult> RemoveLibrary(int id)
         {
-            departmentRepository = new DepartmentRepository();
-            departmentRepository.DepartmentReadRepository = new Data.Read.DepartmentReadRepository();
-            departmentRepository.DepartmentWriteRepository = new Data.Write.DepartmentWriteRepository();
+            _departmentRepository.DepartmentReadRepository = new Data.Read.DepartmentReadRepository();
+            _departmentRepository.DepartmentWriteRepository = new Data.Write.DepartmentWriteRepository();
 
 
-            var departments = await departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(id);
+            var departments = await _departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(id);
             foreach (var department in departments)
             {
-                var isDepartmentDeleted = await departmentRepository.DepartmentWriteRepository.DeleteDepartment(department.Id);
+                var isDepartmentDeleted = await _departmentRepository.DepartmentWriteRepository.DeleteDepartment(department.Id);
                 if (!isDepartmentDeleted)
                 {
-                    logger.Error("Error while deleting department");
+                    _logger.Error("Error while deleting department");
                     throw new Exception("Error while deleting department");
                 }
             }
@@ -113,8 +111,7 @@ namespace MediaStorage.Service
 
         private async Task<ServiceResult> DeleteLibrary(int id)
         {
-            libraryRepository = new LibraryRepository();
-            var isUpdated = await libraryRepository.LibraryWriteRepository.DeleteLibrary(id);
+            var isUpdated = await _libraryRepository.LibraryWriteRepository.DeleteLibrary(id);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
