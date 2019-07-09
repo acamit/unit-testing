@@ -17,8 +17,7 @@ namespace MediaStorage.Service
         private IDepartmentRepository _departmentRepository;
         private ILogger _logger;
 
-        
-        public LibraryService(ILibraryRepository libraryRepository, IDepartmentRepository departmentRepository, Logger logger)
+        public LibraryService(ILibraryRepository libraryRepository, IDepartmentRepository departmentRepository, ILogger logger)
         {
             _libraryRepository = libraryRepository;
             _departmentRepository = departmentRepository;
