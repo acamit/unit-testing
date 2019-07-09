@@ -44,7 +44,6 @@
 
         public async Task<DepartmentViewModel> GetDepartmentById(int id)
         {
-            _departmentRepository.DepartmentReadRepository = new DepartmentReadRepository();
             var department = await _departmentRepository.DepartmentReadRepository.GetDepartmentById(id);
 
             if (department == null)
@@ -57,54 +56,58 @@
 
         public async Task<bool> HasDepartmentsByLibraryId(int libraryId)
         {
-            var department = await GetDepartmentById(libraryId);
-            return (department != null && department.Id > 0);
+            try
+            {
+                var department = await GetDepartmentById(libraryId);
+                return (department != null && department.Id > 0);
+            }catch(ResourceNotFoundException)
+            {
+                return false;
+            }
+            
         }
 
         public async Task<ServiceResult> AddDepartment(DepartmentViewModel entity)
         {
-            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
             var id = await _departmentRepository.DepartmentWriteRepository.AddDepartment(entity);
             ServiceResult result = new ServiceResult() { Id = id };
             if (id < 0)
             {
-                result.SetFailure("Error while inserting department.");
+                result.SetFailure(DepartmentAddFailedMessage);
             }
             else
             {
-                result.SetSuccess("Department added successfully.");
+                result.SetSuccess(DepartmentAddSuccessMessage);
             }
             return result;
         }
 
         public async Task<ServiceResult> UpdateDepartment(DepartmentViewModel entity)
         {
-            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
             var isUpdated = await _departmentRepository.DepartmentWriteRepository.UpdateDepartment(entity);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while updating department.");
+                result.SetFailure(UpdateDepartmentFailedMessage);
             }
             else
             {
-                result.SetSuccess("Department updated successfully.");
+                result.SetSuccess(UpdateDepartmentSuccessMessage);
             }
             return result;
         }
 
         public async Task<ServiceResult> RemoveDepartment(int id)
         {
-            _departmentRepository.DepartmentWriteRepository = new DepartmentWriteRepository();
             var isUpdated = await _departmentRepository.DepartmentWriteRepository.DeleteDepartment(id);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while deleting department.");
+                result.SetFailure(DeleteDepartmentFailedMessage);
             }
             else
             {
-                result.SetSuccess("Department deleted successfully.");
+                result.SetSuccess(DeleteDepartmentSuccessMessage);
             }
             return result;
         }
