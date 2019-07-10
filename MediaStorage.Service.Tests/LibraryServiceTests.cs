@@ -16,13 +16,13 @@ namespace MediaStorage.Service.Tests
     [TestClass]
     public class LibraryServiceTests
     {
-        private Mock<ILibraryReadRepository> _libraryReadRepository;
-        private Mock<ILibraryWriteRepository> _libraryWriteRepository;
-        private Mock<ILibraryRepository> _libraryRepository;
-        private Mock<IDepartmentRepository> _departmentRepository;
+        private readonly Mock<ILibraryReadRepository> _libraryReadRepository;
+        private readonly Mock<ILibraryWriteRepository> _libraryWriteRepository;
+        private readonly Mock<ILibraryRepository> _libraryRepository;
+        private readonly Mock<IDepartmentRepository> _departmentRepository;
         private readonly Mock<IDepartmentReadRepository> _departmentReadRepository;
         private readonly Mock<IDepartmentWriteRepository> _departmentWriteRepository;
-        private Mock<ILogger> _loggerService;
+        private readonly Mock<ILogger> _loggerService;
         private LibraryService _service;
 
         public LibraryServiceTests()
