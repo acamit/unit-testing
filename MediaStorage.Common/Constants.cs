@@ -16,5 +16,14 @@
         public const string DeleteDepartmentFailedMessage = "Error while deleting department.";
         public const string DeleteDepartmentSuccessMessage = "Department deleted successfully.";
         #endregion
+
+        #region LibraryServiceRelatedMessages
+        public const string LibraryAddFailedMessage = "Error while inserting library.";
+        public const string LibraryAddSuccessMessage = "Library added successfully";
+        public const string UpdateLibrarySuccessMessage = "Library updated successfully.";
+        public const string UpdateLibraryFailedMessage = "Error while updating Library.";
+        public const string DeleteLibraryFailedMessage = "Error while deleting Library.";
+        public const string DeleteLibrarySuccessMessage = "Library deleted successfully.";
+        #endregion
     }
 }

@@ -65,11 +65,11 @@ namespace MediaStorage.Service
             result.Id = id;
             if (id < 0)
             {
-                result.SetFailure("Error while inserting library.");
+                result.SetFailure(LibraryAddFailedMessage);
             }
             else
             {
-                result.SetSuccess("Library added successfully.");
+                result.SetSuccess(LibraryAddSuccessMessage);
             }
             return result;
         }
@@ -80,29 +80,26 @@ namespace MediaStorage.Service
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while updating library.");
+                result.SetFailure(UpdateLibraryFailedMessage);
             }
             else
             {
-                result.SetSuccess("Library updated successfully.");
+                result.SetSuccess(UpdateLibrarySuccessMessage);
             }
             return result;
         }
 
         public async Task<ServiceResult> RemoveLibrary(int id)
         {
-            _departmentRepository.DepartmentReadRepository = new Data.Read.DepartmentReadRepository();
-            _departmentRepository.DepartmentWriteRepository = new Data.Write.DepartmentWriteRepository();
-
-
+            
             var departments = await _departmentRepository.DepartmentReadRepository.GetDepartmentsByLibraryId(id);
             foreach (var department in departments)
             {
                 var isDepartmentDeleted = await _departmentRepository.DepartmentWriteRepository.DeleteDepartment(department.Id);
                 if (!isDepartmentDeleted)
                 {
-                    _logger.Error("Error while deleting department");
-                    throw new Exception("Error while deleting department");
+                    _logger.Error(DeleteDepartmentFailedMessage);
+                    throw new Exception(DeleteDepartmentFailedMessage);
                 }
             }
             return await DeleteLibrary(id);
@@ -114,11 +111,11 @@ namespace MediaStorage.Service
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while deleting library.");
+                result.SetFailure(DeleteLibraryFailedMessage);
             }
             else
             {
-                result.SetSuccess("Library deleted successfully.");
+                result.SetSuccess(DeleteLibrarySuccessMessage);
             }
             return result;
         }
