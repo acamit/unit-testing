@@ -47,10 +47,6 @@ namespace MediaStorage.Service
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<ILogger, Logger>();
-            container.RegisterType<IDepartmentRepository, DepartmentRepository>();
-            container.RegisterType<IDepartmentReadRepository, DepartmentReadRepository>();
-            container.RegisterType<IDepartmentWriteRepository, DepartmentWriteRepository>();
         }
     }
 }

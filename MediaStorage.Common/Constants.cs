@@ -25,5 +25,14 @@
         public const string DeleteLibraryFailedMessage = "Error while deleting Library.";
         public const string DeleteLibrarySuccessMessage = "Library deleted successfully.";
         #endregion
+
+        #region MaterialServiceRealtedMessages
+        public const string MaterialAddFailedMessage = "Error while inserting material.";
+        public const string MaterialAddSuccessMessage = "Material added successfully";
+        public const string UpdateMaterialSuccessMessage = "Material updated successfully.";
+        public const string UpdateMaterialFailedMessage = "Error while updating material.";
+        public const string DeleteMaterialFailedMessage = "Error while deleting material.";
+        public const string DeleteMaterialSuccessMessage = "Material deleted successfully.";
+        #endregion
     }
 }

@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MediaStorage.DataV1">
+      <HintPath>..\MediaStorage.Service\Libs\MediaStorage.DataV1.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -125,14 +128,18 @@
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Interfaces\IRepository\IDepartmentRepository.cs" />
     <Compile Include="Interfaces\IRepository\ILibraryRepository.cs" />
+    <Compile Include="Interfaces\IRepository\IMaterialReadRepository.cs" />
     <Compile Include="Repository\LibraryRepository.cs" />
+    <Compile Include="Read\MaterialTypeReadRepositoryExtened.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Write\CategoryWriteRepository.cs" />
     <Compile Include="Write\DepartmentWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\IDepartmentWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\ILibraryWriteRepository.cs" />
+    <Compile Include="Interfaces\IWrite\IMaterialTypeWriteRepository.cs" />
     <Compile Include="Write\LibraryWriteRepository.cs" />
+    <Compile Include="Write\MaterialTypeWriteRepositoryExtended.cs" />
     <Compile Include="Write\UserWriteRepository.cs" />
   </ItemGroup>
   <ItemGroup>

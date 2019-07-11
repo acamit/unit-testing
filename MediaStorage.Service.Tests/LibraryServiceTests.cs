@@ -151,7 +151,6 @@ namespace MediaStorage.Service.Tests
         {
             _libraryWriteRepository.Setup(x => x.AddLibrary(It.IsAny<LibraryViewModel>())).ReturnsAsync(1);
             var result = await _service.AddLibrary(LibraryServiceTestData.Library);
-            _libraryWriteRepository.Verify(x => x.AddLibrary(It.IsAny<LibraryViewModel>()), Times.Once, "Should add the department");
             Assert.IsTrue(result.IsSuccessful, "Issuccessfull should be set to true");
             Assert.AreEqual(result.Message, Constants.LibraryAddSuccessMessage);
         }
@@ -160,7 +159,6 @@ namespace MediaStorage.Service.Tests
         {
             _libraryWriteRepository.Setup(x => x.AddLibrary(It.IsAny<LibraryViewModel>())).ReturnsAsync(-1);
             var result = await _service.AddLibrary(LibraryServiceTestData.Library);
-            _libraryWriteRepository.Verify(x => x.AddLibrary(It.IsAny<LibraryViewModel>()), Times.Once, "Should call add the department");
             Assert.IsFalse(result.IsSuccessful, "Issuccessfull should be set to false");
             Assert.AreEqual(result.Message, Constants.LibraryAddFailedMessage, "Should set add department failed message correctly.");
         }

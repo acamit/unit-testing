@@ -1,6 +1,8 @@
 ﻿using MediaStorage.Common;
+using MediaStorage.Common.Interfaces;
 using MediaStorage.Common.ViewModels.MaterialType;
 using MediaStorage.Data.Read;
+using MediaStorage.Data.Repository;
 using MediaStorage.Data.Write;
 using System;
 using System.Collections.Generic;
@@ -12,21 +14,23 @@ namespace MediaStorage.Service
 {
     public class MaterialTypeService
     {
-        MaterialTypeReadRepository materialTypeReadRepository = new MaterialTypeReadRepository();
-        MaterialTypeWriteRepository materialTypeWriteRepository = new MaterialTypeWriteRepository();
-        private Logger logger;
+        private readonly IMaterialReadRepository _materialTypeReadRepository;
+        private readonly IMaterialTypeWriteRepository  _materialTypeWriteRepository;
+        private readonly ILogger _logger;
 
-        public MaterialTypeService()
+        public MaterialTypeService(IMaterialReadRepository materialTypeReadRepository , IMaterialTypeWriteRepository materialTypeWriteRepository, ILogger logger)
         {
-            logger = new Logger();
+            _materialTypeReadRepository = materialTypeReadRepository;
+            _materialTypeWriteRepository = materialTypeWriteRepository;
+            _logger = logger;
         }
 
         public async Task<List<MaterialTypeViewModel>> GetAllMaterialTypes()
         {
-            var materialTypes = await materialTypeReadRepository.GetAllMaterials();
+            var materialTypes = await _materialTypeReadRepository.GetAllMaterials();
             if (materialTypes == null || !materialTypes.Any())
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return materialTypes;
@@ -34,17 +38,17 @@ namespace MediaStorage.Service
 
         public async Task<List<CustomSelectListItem>> GetMaterialTypesAsSelectListItem(int? categoryId)
         {
-            var materialTypes = await materialTypeReadRepository.GetMaterialTypesAsSelectListItem(categoryId);
+            var materialTypes = await _materialTypeReadRepository.GetMaterialTypesAsSelectListItem(categoryId);
 
             if (materialTypes == null || !materialTypes.Any())
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
 
             if (!materialTypes.Any(x => x.Selected))
             {
-                logger.Error(SelectedSubCategoriesDoesNotExistErrorMessage);
+                _logger.Error(SelectedSubCategoriesDoesNotExistErrorMessage);
                 throw new Exception(SelectedSubCategoriesDoesNotExistErrorMessage);
             }
 
@@ -53,11 +57,11 @@ namespace MediaStorage.Service
 
         public async Task<MaterialTypeViewModel> GetMaterialTypeById(int id)
         {
-            var materialType = await materialTypeReadRepository.GetMaterialTypeById(id);
+            var materialType = await _materialTypeReadRepository.GetMaterialTypeById(id);
 
             if (materialType == null)
             {
-                logger.Error(NoRecordsExists);
+                _logger.Error(NoRecordsExists);
                 throw new ResourceNotFoundException(NoRecordsExists);
             }
             return materialType;
@@ -66,45 +70,45 @@ namespace MediaStorage.Service
         public async Task<ServiceResult> AddMaterialType(MaterialTypeViewModel entity)
         {
 
-            var id = await materialTypeWriteRepository.AddMaterialType(entity);
+            var id = await _materialTypeWriteRepository.AddMaterialType(entity);
             ServiceResult result = new ServiceResult() { Id = id };
             if (id < 0)
             {
-                result.SetFailure("Error while inserting material.");
+                result.SetFailure(MaterialAddFailedMessage);
             }
             else
             {
-                result.SetSuccess("Material added successfully.");
+                result.SetSuccess(MaterialAddSuccessMessage);
             }
             return result;
         }
 
-        public async Task<ServiceResult> UpdateLibrary(MaterialTypeViewModel entity)
+        public async Task<ServiceResult> UpdateMaterialType(MaterialTypeViewModel entity)
         {
-            var isUpdated = await materialTypeWriteRepository.UpdateMaterialType(entity);
+            var isUpdated = await _materialTypeWriteRepository.UpdateMaterialType(entity);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while material library.");
+                result.SetFailure(UpdateMaterialFailedMessage);
             }
             else
             {
-                result.SetSuccess("Material updated successfully.");
+                result.SetSuccess(UpdateMaterialSuccessMessage);
             }
             return result;
         }
 
-        public async Task<ServiceResult> RemoveLibrary(int id)
+        public async Task<ServiceResult> RemoveMaterialType(int id)
         {
-            var isUpdated = await materialTypeWriteRepository.RemoveMaterialType(id);
+            var isUpdated = await _materialTypeWriteRepository.RemoveMaterialType(id);
             ServiceResult result = new ServiceResult();
             if (!isUpdated)
             {
-                result.SetFailure("Error while deleting material.");
+                result.SetFailure(DeleteMaterialFailedMessage);
             }
             else
             {
-                result.SetSuccess("Library deleted successfully.");
+                result.SetSuccess(DeleteMaterialSuccessMessage);
             }
             return result;
         }

@@ -126,7 +126,7 @@ namespace MediaStorage.Service.Tests
         public async Task GetDepartmentById_ShouldLogErrorMessage(int id)
         {
             _departmentReadRepository.Setup(x => x.GetDepartmentById(It.IsAny<int>())).ReturnsAsync(DepartmentServiceTestData.DepartmentNull);
-            _loggerService.Setup(x => x.Error(It.IsAny<string>(), null, string.Empty,string.Empty, 0, string.Empty, null));
+            //_loggerService.Setup(x => x.Error(It.IsAny<string>(), null, string.Empty,string.Empty, 0, string.Empty, null));
             var result = await Assert.ThrowsExceptionAsync<ResourceNotFoundException>(async () =>
             {
                 await _service.GetDepartmentById(id);
@@ -238,7 +238,9 @@ namespace MediaStorage.Service.Tests
         public async Task RemoveDepartment_ShouldRemoveOneDepartment(int id)
         {
             _departmentWriteRepository.Setup(x => x.DeleteDepartment(It.IsAny<int>())).ReturnsAsync(true);
+
             var result = await _service.RemoveDepartment(id);
+
             Assert.IsTrue(result.IsSuccessful, "Issuccessfull should be set to true");
             Assert.AreEqual(result.Message, Constants.DeleteDepartmentSuccessMessage, "Should set delete department successs message correctly.");
         }
@@ -261,9 +263,11 @@ namespace MediaStorage.Service.Tests
         public async Task RemoveDepartment_ShouldReturnFalse(int id)
         {
             _departmentWriteRepository.Setup(x => x.DeleteDepartment(It.IsAny<int>())).ReturnsAsync(false);
+
             var result = await _service.RemoveDepartment(id);
+
             Assert.IsFalse(result.IsSuccessful, "Issuccessfull should be set to false");
-            Assert.AreEqual(result.Message, Constants.DeleteDepartmentFailedMessage, "Should set delete department successs message correctly.");
+            Assert.AreEqual(result.Message, Constants.DeleteDepartmentFailedMessage, "Should set delete department failed message correctly.");
         }
 
         #endregion

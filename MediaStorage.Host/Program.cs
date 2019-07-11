@@ -11,7 +11,7 @@
         {
             var departmentService = new DepartmentService(new Logger(), new DepartmentRepository(new DepartmentReadRepository(), new DepartmentWriteRepository()));
             var libraryService = new LibraryService(new LibraryRepository(new LibraryReadRepository(), new LibraryWriteRepository()), new DepartmentRepository(new DepartmentReadRepository(), new DepartmentWriteRepository()), new Logger());
-            var materialTypeService = new MaterialTypeService();
+            var materialTypeService = new MaterialTypeService(new MaterialTypeReadRepositoryExtened(), new MaterialTypeWriteRepositoryExtended(), new Logger());
             var menuService = new MenuService();
             var tagService = new TagService();
             var userService = new UserService();

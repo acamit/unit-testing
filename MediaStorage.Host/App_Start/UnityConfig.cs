@@ -1,3 +1,8 @@
+using MediaStorage.Common;
+using MediaStorage.Common.Interfaces;
+using MediaStorage.Data.Read;
+using MediaStorage.Data.Repository;
+using MediaStorage.Data.Write;
 using System;
 
 using Unity;
@@ -42,6 +47,13 @@ namespace MediaStorage.Host
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+
+            container.RegisterType<ILogger, Logger>();
+            container.RegisterType<IDepartmentRepository, DepartmentRepository>();
+            container.RegisterType<IDepartmentReadRepository, DepartmentReadRepository>();
+            container.RegisterType<IDepartmentWriteRepository, DepartmentWriteRepository>();
+            container.RegisterType<IMaterialReadRepository, MaterialTypeReadRepositoryExtened>();
+            container.RegisterType<IMaterialTypeWriteRepository, MaterialTypeWriteRepositoryExtended>();
         }
     }
 }
