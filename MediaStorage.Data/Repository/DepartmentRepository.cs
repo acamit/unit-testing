@@ -5,7 +5,7 @@ namespace MediaStorage.Data.Repository
 {
     public class DepartmentRepository : IDepartmentRepository
     {
-        public DepartmentRepository(DepartmentReadRepository departmentReadRepository, DepartmentWriteRepository departmentWriteRepository)
+        public DepartmentRepository(IDepartmentReadRepository departmentReadRepository, IDepartmentWriteRepository departmentWriteRepository)
         {
             DepartmentWriteRepository = departmentWriteRepository;
             DepartmentReadRepository = departmentReadRepository;

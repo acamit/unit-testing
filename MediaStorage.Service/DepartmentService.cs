@@ -3,15 +3,13 @@
     using MediaStorage.Common;
     using MediaStorage.Common.Interfaces;
     using MediaStorage.Common.ViewModels.Department;
-    using MediaStorage.Data.Read;
     using MediaStorage.Data.Repository;
-    using MediaStorage.Data.Write;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using static MediaStorage.Common.Constants;
 
-    public class DepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private IDepartmentRepository _departmentRepository;
         private ILogger _logger;
@@ -60,11 +58,12 @@
             {
                 var department = await GetDepartmentById(libraryId);
                 return (department != null && department.Id > 0);
-            }catch(ResourceNotFoundException)
+            }
+            catch (ResourceNotFoundException)
             {
                 return false;
             }
-            
+
         }
 
         public async Task<ServiceResult> AddDepartment(DepartmentViewModel entity)

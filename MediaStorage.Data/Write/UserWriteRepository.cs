@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Read
 {
-    public class UserWriteRepository
+    public class UserWriteRepository : IUserWriteRepository
     {
         public bool AddUser(User user)
         {

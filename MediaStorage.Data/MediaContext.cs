@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace MediaStorage.Data
 {
-    public class MediaContext : DbContext
+    public class MediaContext : DbContext, IMediaContext
     {
         public MediaContext() : base("name=MediaContext")
         {
@@ -41,7 +41,6 @@ namespace MediaStorage.Data
         public DbSet<Menu> Menus { get; set; }
 
         public DbSet<MenuItem> MenuItems { get; set; }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,15 +1,12 @@
-﻿using MediaStorage.Common;
-using MediaStorage.Common.ViewModels.User;
+﻿using MediaStorage.Common.ViewModels.User;
 using MediaStorage.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Read
 {
-    public class UserReadRepository
+    public class UserReadRepository : IUserReadRepository
     {
         public List<UserViewModel> GetAllUsers()
         {

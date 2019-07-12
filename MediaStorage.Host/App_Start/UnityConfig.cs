@@ -1,11 +1,13 @@
 using MediaStorage.Common;
 using MediaStorage.Common.Interfaces;
-using MediaStorage.Data.Read;
-using MediaStorage.Data.Repository;
+using MediaStorage.Config;
+using MediaStorage.Data;
 using MediaStorage.Data.Write;
+using MediaStorage.Service;
 using System;
-
+using System.Reflection;
 using Unity;
+using Unity.Lifetime;
 
 namespace MediaStorage.Host
 {
@@ -49,11 +51,16 @@ namespace MediaStorage.Host
             // container.RegisterType<IProductRepository, ProductRepository>();
 
             container.RegisterType<ILogger, Logger>();
-            container.RegisterType<IDepartmentRepository, DepartmentRepository>();
-            container.RegisterType<IDepartmentReadRepository, DepartmentReadRepository>();
-            container.RegisterType<IDepartmentWriteRepository, DepartmentWriteRepository>();
-            container.RegisterType<IMaterialReadRepository, MaterialTypeReadRepositoryExtened>();
-            container.RegisterType<IMaterialTypeWriteRepository, MaterialTypeWriteRepositoryExtended>();
+            //container.RegisterAllRepositories(typeof(IRepository), Assembly.GetAssembly(typeof(DepartmentWriteRepository)), typeof(ContainerControlledLifetimeManager));
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IConfigurationProvider, ConfigurationProvider>();
+            container.RegisterType<IDepartmentService, DepartmentService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ILibraryService, LibraryService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IMenuService, MenuService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ITagService, TagService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IMaterialTypeService, MaterialTypeService>(new ContainerControlledLifetimeManager());
+            
         }
     }
 }

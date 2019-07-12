@@ -111,6 +111,11 @@
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\UserRole.cs" />
+    <Compile Include="Interfaces\IMediaContext.cs" />
+    <Compile Include="Interfaces\IRepository\IUserRepository.cs" />
+    <Compile Include="Interfaces\IRepository%28T%29.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="MediaContext.cs" />
     <Compile Include="Migrations\201907050802149_Init.cs" />
     <Compile Include="Migrations\201907050802149_Init.Designer.cs">
@@ -122,6 +127,7 @@
     <Compile Include="Read\DepartmentReadRepository.cs" />
     <Compile Include="Interfaces\IRead\IDepartmentReadRepository.cs" />
     <Compile Include="Interfaces\IRead\ILibraryReadRepository.cs" />
+    <Compile Include="Interfaces\IRead\IUserReadRepository.cs" />
     <Compile Include="Read\LibraryReadRepository.cs" />
     <Compile Include="Read\UserReadRepository.cs" />
     <Compile Include="Repository.cs" />
@@ -138,6 +144,7 @@
     <Compile Include="Interfaces\IWrite\IDepartmentWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\ILibraryWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\IMaterialTypeWriteRepository.cs" />
+    <Compile Include="Interfaces\IWrite\IUserWriteRepository.cs" />
     <Compile Include="Write\LibraryWriteRepository.cs" />
     <Compile Include="Write\MaterialTypeWriteRepositoryExtended.cs" />
     <Compile Include="Write\UserWriteRepository.cs" />

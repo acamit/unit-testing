@@ -34,5 +34,16 @@
         public const string DeleteMaterialFailedMessage = "Error while deleting material.";
         public const string DeleteMaterialSuccessMessage = "Material deleted successfully.";
         #endregion
+
+        #region UserServiceRelatedMessages
+        public const string UserNotFoundMessage = "User not found.";
+        public const string LoginSuccessMessage = "Login successful.";
+        public const string UserNameAlreadyExistsMessage = "Username already exist.";
+        public const string MailAlReadyExistsMessage = "Mail already exist.";
+        public const string DeleteUserFailedMessage = "Error while deleting User.";
+        public const string DeleteUserSuccessMessage = "User deleted successfully.";
+        public const string AddUserFailedMessage  = "Add user failed.";
+        public const string AddUserSuccessMessage = "Add user successful.";
+        #endregion
     }
 }

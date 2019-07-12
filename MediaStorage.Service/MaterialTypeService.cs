@@ -12,7 +12,7 @@ using static MediaStorage.Common.Constants;
 
 namespace MediaStorage.Service
 {
-    public class MaterialTypeService
+    public class MaterialTypeService : IMaterialTypeService
     {
         private readonly IMaterialReadRepository _materialTypeReadRepository;
         private readonly IMaterialTypeWriteRepository  _materialTypeWriteRepository;

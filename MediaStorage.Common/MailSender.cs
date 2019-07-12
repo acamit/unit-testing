@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Common
 {
-    public class MailSender
+    public class MailSender : IMailSender
     {
         public async Task Send(string to, string subject, string body)
         {

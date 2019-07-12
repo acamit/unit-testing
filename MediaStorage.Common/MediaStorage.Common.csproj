@@ -87,6 +87,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CustomSelectListItem.cs" />
+    <Compile Include="Interfaces\IMailSender.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IServiceResult.cs" />
     <Compile Include="Logger.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceNotFoundException.cs" />
     <Compile Include="ServiceResult.cs" />
+    <Compile Include="UnityContainerExtensions.cs" />
     <Compile Include="ViewModels\Category\CategoryListViewModel.cs" />
     <Compile Include="ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Department\DepartmentListViewModel.cs" />

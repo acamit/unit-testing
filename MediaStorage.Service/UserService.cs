@@ -1,34 +1,29 @@
 ﻿using MediaStorage.Common;
 using MediaStorage.Common.ViewModels.User;
-using MediaStorage.Data;
 using MediaStorage.Data.Entities;
-using MediaStorage.Data.Read;
-using MediaStorage.Data.Repository;
+using MediaStorage.Data.Interfaces.IRepository;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
+using static MediaStorage.Common.Constants;
 namespace MediaStorage.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        private UserRepository userRepository;
-
-        public UserService()
+        private IUserRepository _userRepository;
+        private IMailSender _mailSender;
+        public UserService(IUserRepository userRepository, IMailSender mailSender)
         {
-            userRepository = new UserRepository();
+            _userRepository = userRepository;
+            _mailSender = mailSender;
         }
         public List<UserViewModel> GetAllUsers()
         {
-            userRepository.userReadRepository = new UserReadRepository();
-            return userRepository.userReadRepository.GetAllUsers();
+            return _userRepository.UserReadRepository.GetAllUsers();
         }
 
         public UserPostViewModel GetUserById(Guid id)
         {
-            userRepository.userReadRepository = new UserReadRepository();
-
-            User user = userRepository.userReadRepository.GetUserById(id);
+            User user = _userRepository.UserReadRepository.GetUserById(id);
             return user == null ? null : new UserPostViewModel
             {
                 Id = user.Id,
@@ -39,33 +34,36 @@ namespace MediaStorage.Service
 
         public ServiceResult Login(LoginViewModel model)
         {
-            userRepository.userReadRepository = new UserReadRepository();
-
             ServiceResult result = new ServiceResult();
-            var user = userRepository.userReadRepository.GetByUserIdPassword(model.Username, model.Password);
+            var user = _userRepository.UserReadRepository.GetByUserIdPassword(model.Username, model.Password);
             if (user == null)
-                result.SetFailure("User not found.");
+            {
+                result.SetFailure(UserNotFoundMessage);
+            }
             else
-                result.SetSuccess("Login successful.");
+            {
+                result.SetSuccess(LoginSuccessMessage);
+            }
 
             return result;
         }
 
         public ServiceResult AddUser(UserPostViewModel entity)
         {
-            bool isUpdated = false;
-
-            userRepository.userReadRepository = new UserReadRepository();
-            userRepository.userWriteRepository = new UserWriteRepository();
-
+            bool isUserAdded = false;
             var password = CreateRandomPassword();
 
-            if (userRepository.userReadRepository.GetByUserName(entity.Username) != null)
-                return new ServiceResult(false, "Username already exist.");
-            if (userRepository.userReadRepository.GetByUserByEmail(entity.Mail) != null)
-                return new ServiceResult(false, "Mail already exist.");
+            if (_userRepository.UserReadRepository.GetByUserName(entity.Username) != null)
+            {
+                return new ServiceResult(false, UserNameAlreadyExistsMessage);
+            }
 
-            isUpdated = userRepository.userWriteRepository.AddUser(new User
+            if (_userRepository.UserReadRepository.GetByUserByEmail(entity.Mail) != null)
+            {
+                return new ServiceResult(false, MailAlReadyExistsMessage);
+            }
+
+            isUserAdded = _userRepository.UserWriteRepository.AddUser(new User
             {
                 Username = entity.Username,
                 Mail = entity.Mail,
@@ -73,18 +71,17 @@ namespace MediaStorage.Service
                 IsActive = entity.IsActive
             });
 
-            MailSender ms = new MailSender();
-            ms.Send("example@gmail.com", "Added" + entity.Username, "Welcome ! " + entity.Username).Wait();
+            _mailSender.Send("example@gmail.com", "Added" + entity.Username, "Welcome ! " + entity.Username).Wait();
 
             ServiceResult result = new ServiceResult();
 
-            if (!isUpdated)
+            if (!isUserAdded)
             {
-                result.SetFailure("Error while deleting User.");
+                result.SetFailure(AddUserFailedMessage);
             }
             else
             {
-                result.SetSuccess("User deleted successfully.");
+                result.SetSuccess(AddUserSuccessMessage);
             }
             return result;
         }
@@ -92,23 +89,21 @@ namespace MediaStorage.Service
         public ServiceResult RemoveUser(Guid id)
         {
             bool isUpdated = false;
-
-            userRepository.userReadRepository = new UserReadRepository();
-            userRepository.userWriteRepository = new UserWriteRepository();
-
-            var user = userRepository.userReadRepository.GetUserById(id);
+            var user = _userRepository.UserReadRepository.GetUserById(id);
             if (user != null)
-                isUpdated = userRepository.userWriteRepository.DeleteUser(user);
+            {
+                isUpdated = _userRepository.UserWriteRepository.DeleteUser(user);
+            }
 
             ServiceResult result = new ServiceResult();
 
             if (!isUpdated)
             {
-                result.SetFailure("Error while deleting User.");
+                result.SetFailure(DeleteUserFailedMessage);
             }
             else
             {
-                result.SetSuccess("User deleted successfully.");
+                result.SetSuccess(DeleteUserSuccessMessage);
             }
             return result;
         }

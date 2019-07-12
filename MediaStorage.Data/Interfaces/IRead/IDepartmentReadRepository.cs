@@ -4,7 +4,7 @@ using MediaStorage.Common.ViewModels.Department;
 
 namespace MediaStorage.Data.Read
 {
-    public interface IDepartmentReadRepository
+    public interface IDepartmentReadRepository: IRepository
     {
         Task<List<DepartmentListViewModel>> GetAllDepartments();
         Task<DepartmentViewModel> GetDepartmentById(int departmentId);

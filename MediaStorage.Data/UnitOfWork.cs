@@ -1,21 +1,32 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MediaStorage.Data.Entities;
 
 namespace MediaStorage.Data
 {
-    public class UnitOfWork 
+    public class UnitOfWork : IUnitOfWork
     {
-        private readonly MediaContext context;
+        private readonly IMediaContext _context;
 
-        public UnitOfWork(MediaContext context)
+        public IRepository<MenuItem> MenuItemRepository { get; }
+        public IRepository<Menu> MenuRepository { get;  }
+
+        public UnitOfWork(IMediaContext context)
         {
-            this.context = context ?? throw new ArgumentNullException("Context can not be null.");
+            _context = context;
+            MenuRepository = new Repository<Menu>(_context);
+            MenuItemRepository = new Repository<MenuItem>(_context);
+        }
+
+        public UnitOfWork(IMediaContext context, bool disposed) : this((MediaContext)context)
+        {
+            this.disposed = disposed;
         }
 
         public int Commit()
         {
             int commitCount = -1;
-            using (var transaction = context.Database.BeginTransaction())
+            using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
@@ -35,12 +46,12 @@ namespace MediaStorage.Data
 
         public int SaveChanges()
         {
-            return context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         public Task<int> SaveChangesAsync()
         {
-            return context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
         #region IDisposable implementation
@@ -48,12 +59,13 @@ namespace MediaStorage.Data
          * DbContext has been disposed error on IDisposable pattern.
          */
         private bool disposed = false;
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposed == false)
                 if (disposing)
-                    if (context != null)
-                        context.Dispose();
+                    if (_context != null)
+                        _context.Dispose();
 
             disposed = true;
         }

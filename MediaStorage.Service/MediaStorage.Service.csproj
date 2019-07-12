@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="MediaStorage.DataV1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\MediaStorage.DataV1.dll</HintPath>
@@ -107,6 +108,12 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="DepartmentService.cs" />
+    <Compile Include="Interfaces\IMaterialTypeService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
+    <Compile Include="Interfaces\ILibraryService.cs" />
+    <Compile Include="Interfaces\IDepartmentService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\ITagService.cs" />
     <Compile Include="LibraryService.cs" />
     <Compile Include="TagService.cs" />
     <Compile Include="UserService.cs" />
@@ -118,6 +125,10 @@
     <ProjectReference Include="..\MediaStorage.Common\MediaStorage.Common.csproj">
       <Project>{60fafe1b-6bec-4f0b-a9c5-393a3ed025ef}</Project>
       <Name>MediaStorage.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaStorage.Config\MediaStorage.Config.csproj">
+      <Project>{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}</Project>
+      <Name>MediaStorage.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaStorage.Data\MediaStorage.Data.csproj">
       <Project>{76D794C6-8148-4143-9846-AFB200275DDF}</Project>

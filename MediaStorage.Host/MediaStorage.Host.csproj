@@ -104,6 +104,10 @@
       <Project>{60fafe1b-6bec-4f0b-a9c5-393a3ed025ef}</Project>
       <Name>MediaStorage.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaStorage.Config\MediaStorage.Config.csproj">
+      <Project>{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}</Project>
+      <Name>MediaStorage.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MediaStorage.Data\MediaStorage.Data.csproj">
       <Project>{76d794c6-8148-4143-9846-afb200275ddf}</Project>
       <Name>MediaStorage.Data</Name>

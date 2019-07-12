@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29025.244
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaStorage.Data", "MediaStorage.Data\MediaStorage.Data.csproj", "{76D794C6-8148-4143-9846-AFB200275DDF}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaStorage.Host", "MediaStorage.Host\MediaStorage.Host.csproj", "{2521B049-D486-441B-AA28-A60377A1A4A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaStorage.Service.Tests", "MediaStorage.Service.Tests\MediaStorage.Service.Tests.csproj", "{67DE648E-494D-4527-886E-636C299BAC7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaStorage.Config", "MediaStorage.Config\MediaStorage.Config.csproj", "{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{67DE648E-494D-4527-886E-636C299BAC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67DE648E-494D-4527-886E-636C299BAC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67DE648E-494D-4527-886E-636C299BAC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E569E0AE-73BC-46BE-8B6B-A62FDF6863AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

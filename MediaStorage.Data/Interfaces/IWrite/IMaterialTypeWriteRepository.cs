@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Write
 {
-    public interface IMaterialTypeWriteRepository
+    public interface IMaterialTypeWriteRepository:IRepository
     {
         Task<int> AddMaterialType(MaterialTypeViewModel entity);
 

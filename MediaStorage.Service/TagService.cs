@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MediaStorage.Service
 {
-    public class TagService
+    public class TagService : ITagService
     {
         private UnitOfWork uow;
         private Repository<Tag> tagRepository;

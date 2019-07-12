@@ -10,7 +10,7 @@ namespace MediaStorage.Service
     using System.Threading.Tasks;
     using static MediaStorage.Common.Constants;
 
-    public class LibraryService
+    public class LibraryService : ILibraryService
     {
 
         private ILibraryRepository _libraryRepository;
