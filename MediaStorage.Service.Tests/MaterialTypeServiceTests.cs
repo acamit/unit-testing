@@ -16,13 +16,13 @@ namespace MediaStorage.Service.Tests
     public class MaterialTypeServiceTests
     {
         private readonly Mock<ILogger> _loggerService;
-        private readonly Mock<IMaterialReadRepository> _materialTypeReadRepository;
+        private readonly Mock<IMaterialTypeReadRepository> _materialTypeReadRepository;
         private readonly Mock<IMaterialTypeWriteRepository> _materialTypeWriteRepository;
         private MaterialTypeService _service;
         public MaterialTypeServiceTests()
         {
             _loggerService = new Mock<ILogger>();
-            _materialTypeReadRepository = new Mock<IMaterialReadRepository>();
+            _materialTypeReadRepository = new Mock<IMaterialTypeReadRepository>();
             _materialTypeWriteRepository = new Mock<IMaterialTypeWriteRepository>();
         }
 

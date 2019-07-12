@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Repository
 {
-    public interface IMaterialReadRepository: IRepository
+    public interface IMaterialTypeReadRepository: IRepository
     {
         Task<List<MaterialTypeViewModel>> GetAllMaterials();
         Task<MaterialTypeViewModel> GetMaterialTypeById(int id);

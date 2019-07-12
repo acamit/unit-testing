@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Write
 {
-    public class CategoryWriteRepository
+    public class CategoryWriteRepository : ICategoryWriteRepository
     {
         public async Task<int> AddCategory(CategoryViewModel entity)
         {

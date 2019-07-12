@@ -1,5 +1,6 @@
 ﻿namespace MediaStorage.Host
 {
+    using MediaStorage.Common;
     using MediaStorage.Service;
     using Unity;
 
@@ -16,6 +17,10 @@
             var userService = UnityConfig.Container.Resolve<IUserService>();
 
             var lib = libraryService.AddLibrary(new Common.ViewModels.Library.LibraryViewModel { Name = "TestLiblary" }).Result;
+            //var lib = new ServiceResult()
+            //{
+            //    Id = 1
+            //};
             var dep = departmentService.AddDepartment(new Common.ViewModels.Department.DepartmentViewModel { Name = "Test", LibraryId = lib.Id }).Result;
             var mtype = materialTypeService.AddMaterialType(new Common.ViewModels.MaterialType.MaterialTypeViewModel { Name = "TestMaterialType" }).Result;
             var menu = menuService.AddMenu(new Common.ViewModels.Menu.MenuViewModel { Name = "Test Menu", Description = "Demo" });

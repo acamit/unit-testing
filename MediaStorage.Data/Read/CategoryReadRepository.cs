@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MediaStorage.Data.Read
 {
-    public class CategoryReadRepository
+    public class CategoryReadRepository : ICategoryReadRepository
     {
         public async Task<List<CategoryListViewModel>> GetAllCategories()
         {

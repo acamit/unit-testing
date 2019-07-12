@@ -128,15 +128,16 @@
     <Compile Include="Interfaces\IRead\IDepartmentReadRepository.cs" />
     <Compile Include="Interfaces\IRead\ILibraryReadRepository.cs" />
     <Compile Include="Interfaces\IRead\IUserReadRepository.cs" />
+    <Compile Include="Interfaces\IRead\ICategoryReadRepository.cs" />
     <Compile Include="Read\LibraryReadRepository.cs" />
     <Compile Include="Read\UserReadRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Interfaces\IRepository\IDepartmentRepository.cs" />
     <Compile Include="Interfaces\IRepository\ILibraryRepository.cs" />
-    <Compile Include="Interfaces\IRepository\IMaterialReadRepository.cs" />
+    <Compile Include="Interfaces\IRepository\IMaterialTypeReadRepository.cs" />
     <Compile Include="Repository\LibraryRepository.cs" />
-    <Compile Include="Read\MaterialTypeReadRepositoryExtened.cs" />
+    <Compile Include="Read\MaterialTypeReadRepositoryExtended.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Write\CategoryWriteRepository.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Interfaces\IWrite\ILibraryWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\IMaterialTypeWriteRepository.cs" />
     <Compile Include="Interfaces\IWrite\IUserWriteRepository.cs" />
+    <Compile Include="Interfaces\ICategoryWriteRepository.cs" />
     <Compile Include="Write\LibraryWriteRepository.cs" />
     <Compile Include="Write\MaterialTypeWriteRepositoryExtended.cs" />
     <Compile Include="Write\UserWriteRepository.cs" />

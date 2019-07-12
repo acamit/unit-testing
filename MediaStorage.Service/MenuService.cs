@@ -3,6 +3,7 @@ using MediaStorage.Common.ViewModels.Menu;
 using MediaStorage.Config;
 using MediaStorage.Data;
 using MediaStorage.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace MediaStorage.Service
             return data;
         }
 
+        //todo : write test cases
         public List<CustomSelectListItem> GetAllMenusBySelectListItem(int? id)
         {
             return _uow.MenuRepository
@@ -73,8 +75,9 @@ namespace MediaStorage.Service
                 Description = entity.Description
             });
 
-            return ServiceResult.GetAddResult(_uow.Commit() == 1);
+            return GetAddResult(_uow.Commit() == 1);
         }
+
 
         public ServiceResult UpdateMenu(MenuViewModel entity)
         {
@@ -85,7 +88,7 @@ namespace MediaStorage.Service
                 Description = entity.Description
             });
 
-            return ServiceResult.GetUpdateResult(_uow.Commit() == 1);
+            return GetUpdateResult(_uow.Commit() == 1);
         }
 
         public ServiceResult RemoveMenu(int id, bool cascadeRemove = false)
@@ -97,7 +100,23 @@ namespace MediaStorage.Service
                     _uow.MenuItemRepository.DeleteRange(menuItems);
             }
             _uow.MenuRepository.Delete(id);
+            return GetRemoveResult(_uow.Commit() > 0);
+        }
+
+        protected virtual ServiceResult GetRemoveResult(bool v)
+        {
             return ServiceResult.GetRemoveResult(_uow.Commit() > 0);
         }
+
+        protected virtual ServiceResult GetAddResult(bool isCommited)
+        {
+            return ServiceResult.GetAddResult(isCommited);
+        }
+
+        protected virtual ServiceResult GetUpdateResult(bool v)
+        {
+            return ServiceResult.GetUpdateResult(_uow.Commit() == 1);
+        }
+
     }
 }

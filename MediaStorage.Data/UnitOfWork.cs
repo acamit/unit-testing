@@ -17,12 +17,7 @@ namespace MediaStorage.Data
             MenuRepository = new Repository<Menu>(_context);
             MenuItemRepository = new Repository<MenuItem>(_context);
         }
-
-        public UnitOfWork(IMediaContext context, bool disposed) : this((MediaContext)context)
-        {
-            this.disposed = disposed;
-        }
-
+        
         public int Commit()
         {
             int commitCount = -1;

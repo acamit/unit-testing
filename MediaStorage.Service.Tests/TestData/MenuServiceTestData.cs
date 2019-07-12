@@ -7,5 +7,6 @@ namespace MediaStorage.Service.Tests.TestData
     public static class MenuServiceTestData
     {
         public static List<Menu> Menus => new List<Menu>() { };
+        public static Menu Menu => new Menu() { };
     }
 }

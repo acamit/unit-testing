@@ -14,11 +14,11 @@ namespace MediaStorage.Service
 {
     public class MaterialTypeService : IMaterialTypeService
     {
-        private readonly IMaterialReadRepository _materialTypeReadRepository;
+        private readonly IMaterialTypeReadRepository _materialTypeReadRepository;
         private readonly IMaterialTypeWriteRepository  _materialTypeWriteRepository;
         private readonly ILogger _logger;
 
-        public MaterialTypeService(IMaterialReadRepository materialTypeReadRepository , IMaterialTypeWriteRepository materialTypeWriteRepository, ILogger logger)
+        public MaterialTypeService(IMaterialTypeReadRepository materialTypeReadRepository , IMaterialTypeWriteRepository materialTypeWriteRepository, ILogger logger)
         {
             _materialTypeReadRepository = materialTypeReadRepository;
             _materialTypeWriteRepository = materialTypeWriteRepository;

@@ -39,7 +39,6 @@
             IsSuccessful = false;
             Message = message;
         }
-
         public static ServiceResult NoRecordResult => new ServiceResult(false, "There is no record for this ID.");
 
         public static ServiceResult InvalidIDResult => new ServiceResult(false, "Invalid ID.");
