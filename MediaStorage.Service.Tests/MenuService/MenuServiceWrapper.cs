@@ -16,17 +16,17 @@ namespace MediaStorage.Service.Tests.MenuServiceTests
 
         protected override ServiceResult GetAddResult(bool isCommited)
         {
-            return base.GetAddResult(isCommited);
+            return _menuServiceMockHelper.GetAddResult(isCommited);
         }
 
-        protected override ServiceResult GetRemoveResult(bool v)
+        protected override ServiceResult GetRemoveResult(bool isRemoved)
         {
-            return base.GetRemoveResult(v);
+            return _menuServiceMockHelper.GetRemoveResult(isRemoved);
         }
 
-        protected override ServiceResult GetUpdateResult(bool v)
+        protected override ServiceResult GetUpdateResult(bool isUpdated)
         {
-            return base.GetUpdateResult(v);
+            return _menuServiceMockHelper.GetUpdateResult(isUpdated);
         }
     }
 }

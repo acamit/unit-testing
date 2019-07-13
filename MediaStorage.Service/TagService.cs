@@ -9,21 +9,20 @@ namespace MediaStorage.Service
 {
     public class TagService : ITagService
     {
-        private UnitOfWork uow;
-        private Repository<Tag> tagRepository;
+        private IUnitOfWork _uow;
+        private IRepository<Tag> _tagRepository;
 
 
-        public TagService()
+        public TagService(IUnitOfWork unitOfWork, IRepository<Tag> repository)
         {
-            MediaContext context = new MediaContext();
-            this.uow = new UnitOfWork(context);
-            this.tagRepository = new Repository<Tag>(context); 
+            this._uow = unitOfWork;
+            this._tagRepository = repository;
         }
 
 
         public List<TagViewModel> GetAllTags()
         {
-            return tagRepository
+            return _tagRepository
                 .GetAll()
                 .Select(s => new TagViewModel
                 {
@@ -33,7 +32,7 @@ namespace MediaStorage.Service
         }
         public TagViewModel GetTagById(int id)
         {
-            var tag = tagRepository.Find(id);
+            var tag = _tagRepository.Find(id);
 
             return tag == null ? null : new TagViewModel
             {
@@ -44,30 +43,44 @@ namespace MediaStorage.Service
 
         public ServiceResult AddTag(TagViewModel entity)
         {
-            tagRepository.Add(new Tag
+            _tagRepository.Add(new Tag
             {
                 Name = entity.Name
             });
 
-            return ServiceResult.GetAddResult(uow.Commit() == 1);
+            return GetAddResult(_uow.Commit() == 1);
         }
 
         public ServiceResult UpdateTag(TagViewModel entity)
         {
-            tagRepository.Update(new Tag
+            _tagRepository.Update(new Tag
             {
                 Id = entity.Id.Value,
                 Name = entity.Name
             });
 
-            return ServiceResult.GetUpdateResult(uow.Commit() == 1);
+            return GetUpdateResult(_uow.Commit() == 1);
         }
 
         public ServiceResult RemoveTag(int id)
         {
-            tagRepository.Delete(id);
+            _tagRepository.Delete(id);
 
-            return ServiceResult.GetRemoveResult(uow.Commit() > 0);
+            return GetRemoveResult(_uow.Commit() > 0);
+        }
+
+        protected virtual ServiceResult GetRemoveResult(bool isRemoved)
+        {
+            return ServiceResult.GetRemoveResult(isRemoved);
+        }
+
+        protected virtual ServiceResult GetAddResult(bool isCommited)
+        {
+            return ServiceResult.GetAddResult(isCommited);
+        }
+        protected virtual ServiceResult GetUpdateResult(bool isUpdated)
+        {
+            return ServiceResult.GetUpdateResult(isUpdated);
         }
     }
 }

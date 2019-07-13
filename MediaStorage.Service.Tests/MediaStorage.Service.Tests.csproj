@@ -83,10 +83,14 @@
     <Compile Include="MenuService\MenuServiceTests.cs" />
     <Compile Include="MenuService\MenuServiceWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagService\ITagServiceMockHelper.cs" />
+    <Compile Include="TagService\TagServiceTests.cs" />
+    <Compile Include="TagService\TagServiceWrapper.cs" />
     <Compile Include="TestData\DepartmentServiceTestData.cs" />
     <Compile Include="TestData\LibraryServiceTestData.cs" />
     <Compile Include="TestData\MaterialTypeServiceTestData.cs" />
     <Compile Include="TestData\MenuServiceTestData.cs" />
+    <Compile Include="TestData\TagServiceTestData.cs" />
     <Compile Include="TestData\UserServiceTestData.cs" />
     <Compile Include="UserServiceTests.cs" />
   </ItemGroup>

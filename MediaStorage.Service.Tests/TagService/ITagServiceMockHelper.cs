@@ -1,13 +1,8 @@
 ﻿using MediaStorage.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MediaStorage.Service.Tests.MenuService
+namespace MediaStorage.Service.Tests.TagService
 {
-    public interface IMenuServiceMockHelper
+    public interface ITagServiceMockHelper
     {
         ServiceResult GetAddResult(bool isCommited);
         ServiceResult GetRemoveResult(bool isRemoved);

@@ -5,7 +5,11 @@ using MediaStorage.Service.Tests.MenuServiceTests;
 using MediaStorage.Service.Tests.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace MediaStorage.Service.Tests.MenuService
 {
@@ -71,6 +75,125 @@ namespace MediaStorage.Service.Tests.MenuService
             Assert.IsNull(result);
         }
         #endregion
+
+        #region AddMenu
+        [TestMethod]
+        public void AddMenu_ShouldAddNewMenuUsingRepository()
+        {
+            _menuServiceMockHelper.Setup(x => x.GetAddResult(It.IsAny<bool>())).Returns(MenuServiceTestData.SuccessServiceResult);
+            var result = _menuService.AddMenu(MenuServiceTestData.NewMenu);
+            _menuRepository.Verify(x => x.Add(It.IsAny<Menu>()), Times.Once, "Should Add new item using repository");
+        }
+
+        [TestMethod]
+        public void AddMenu_ShouldCommitChanges()
+        {
+            _menuServiceMockHelper.Setup(x => x.GetAddResult(It.IsAny<bool>())).Returns(MenuServiceTestData.SuccessServiceResult);
+            var result = _menuService.AddMenu(MenuServiceTestData.NewMenu);
+            _uow.Verify(x => x.Commit(), Times.Once, "Should commit changes after adding the menu.");
+        }
+
+        [TestMethod]
+        public void AddMenu_ItemAdded_ShouldGetServiceResult()
+        {
+            var result = _menuService.AddMenu(MenuServiceTestData.NewMenu);
+
+            _menuServiceMockHelper.Verify(x => x.GetAddResult(It.IsAny<bool>()), Times.Once, "Should get result from service result");
+        }
+
+        #endregion
+
+        #region UpdateMenu
+        [TestMethod]
+        public void UpdateMenu_ShouldUpdateMenuUsingRepository()
+        {
+            _menuServiceMockHelper.Setup(x => x.GetUpdateResult(It.IsAny<bool>())).Returns(MenuServiceTestData.SuccessServiceResult);
+            var result = _menuService.UpdateMenu(MenuServiceTestData.NewMenu);
+            _menuRepository.Verify(x => x.Update(It.IsAny<Menu>()), Times.Once, "Should update menu using repository");
+        }
+
+        [TestMethod]
+        public void UpdateMenu_ShouldCommitChanges()
+        {
+            _menuServiceMockHelper.Setup(x => x.GetUpdateResult(It.IsAny<bool>())).Returns(MenuServiceTestData.SuccessServiceResult);
+            var result = _menuService.UpdateMenu(MenuServiceTestData.NewMenu);
+            _uow.Verify(x => x.Commit(), Times.Once, "Should commit changes after adding the menu.");
+        }
+
+        [TestMethod]
+        public void UpdateMenu_ItemUpdated_ShouldGetServiceResult()
+        {
+            var result = _menuService.UpdateMenu(MenuServiceTestData.NewMenu);
+
+            _menuServiceMockHelper.Verify(x => x.GetUpdateResult(It.IsAny<bool>()), Times.Once, "Should get result from service result");
+        }
+
+        #endregion
+
+        #region RemoveMenu
+        [TestMethod]
+       
+        [DataRow(1, false)]
+        [DataRow(1, true)]
+        public void RemoveMenu_WithOrWithoutCascade_ShouldAddNewMenuUsingRepository(int id, bool cascadeRemove = false)
+        {
+            var result = _menuService.RemoveMenu(id, cascadeRemove);
+            _menuRepository.Verify(x => x.Delete(It.IsAny<int>()), Times.Once, "Should delete using repository");
+        }
+
+        [TestMethod]
+        [DataRow(1, false)]
+        [DataRow(1, true)]
+        public void RemoveMenu_WithOrWithoutCascade_ShouldCommitChanges(int id, bool cascadeRemove = false)
+        {
+            var result = _menuService.RemoveMenu(id, cascadeRemove);
+            _uow.Verify(x => x.Commit(), Times.Once, "Should commit changes after adding the menu.");
+        }
+
+        [TestMethod]
+        [DataRow(1, false)]
+        [DataRow(1, true)]
+        public void RemoveMenu_ItemDeleted_ShouldGetServiceResult(int id, bool cascadeRemove= false)
+        {
+            var result = _menuService.RemoveMenu(id, cascadeRemove);
+            _menuServiceMockHelper.Verify(x => x.GetRemoveResult(It.IsAny<bool>()), Times.Once, "Should get result from service result");
+        }
+        [TestMethod]
+        public void RemoveMenu_CascadeDelete_ShouldRemoveAllMenuItems()
+        {
+            _menuItemRepository.Setup(x => x.GetAll(It.IsAny<Expression<Func<MenuItem, bool>>>(),It.IsAny<Expression<Func<MenuItem, object>>[]>())).Returns(MenuServiceTestData.MenuItems.AsQueryable());
+            var result = _menuService.RemoveMenu(1, true);
+            _menuItemRepository.Verify(x => x.DeleteRange(It.IsAny<ICollection<MenuItem>>()), Times.Once, "Should delete all menu items");
+        }
+
+
+        #endregion
+
+        #region GetAllMenusBySelectListItem
+        [TestMethod]
+        public void GetAllMenusBySelectListItem()
+        {
+            var result = _menuService.GetAllMenusBySelectListItem(2);
+            _menuRepository.Verify(x => x.GetAll(), Times.Once, "Should Get all Menus");
+        }
+
+        [TestMethod]
+        public void GetAllMenusBySelectListItem_SelectedShouldBeTrue()
+        {
+            _menuRepository.Setup(x => x.GetAll()).Returns(MenuServiceTestData.Menus.AsQueryable());
+            var result = _menuService.GetAllMenusBySelectListItem(1);
+            result.TrueForAll(x => x.Selected);
+        }
+
+        [TestMethod]
+        public void GetAllMenusBySelectListItem_SelectedShouldBeFalse()
+        {
+            _menuRepository.Setup(x => x.GetAll()).Returns(MenuServiceTestData.Menus.AsQueryable());
+            var result = _menuService.GetAllMenusBySelectListItem(2);
+            result.TrueForAll(x => !x.Selected);
+        }
+        #endregion
+
         [TestInitialize]
         public void GetServiceInstance()
         {

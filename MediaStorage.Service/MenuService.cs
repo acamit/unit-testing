@@ -21,7 +21,6 @@ namespace MediaStorage.Service
             _configurationProvider = configurationProvider;
         }
 
-
         public List<MenuViewModel> GetAllMenus()
         {
             List<MenuViewModel> data = null;
@@ -43,7 +42,6 @@ namespace MediaStorage.Service
             return data;
         }
 
-        //todo : write test cases
         public List<CustomSelectListItem> GetAllMenusBySelectListItem(int? id)
         {
             return _uow.MenuRepository
@@ -103,19 +101,18 @@ namespace MediaStorage.Service
             return GetRemoveResult(_uow.Commit() > 0);
         }
 
-        protected virtual ServiceResult GetRemoveResult(bool v)
+        protected virtual ServiceResult GetRemoveResult(bool isRemoved)
         {
-            return ServiceResult.GetRemoveResult(_uow.Commit() > 0);
+            return ServiceResult.GetRemoveResult(isRemoved);
         }
 
         protected virtual ServiceResult GetAddResult(bool isCommited)
         {
             return ServiceResult.GetAddResult(isCommited);
         }
-
-        protected virtual ServiceResult GetUpdateResult(bool v)
+        protected virtual ServiceResult GetUpdateResult(bool isUpdated)
         {
-            return ServiceResult.GetUpdateResult(_uow.Commit() == 1);
+            return ServiceResult.GetUpdateResult(isUpdated);
         }
 
     }
