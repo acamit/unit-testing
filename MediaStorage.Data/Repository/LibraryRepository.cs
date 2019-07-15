@@ -11,7 +11,7 @@ namespace MediaStorage.Data.Repository
         public LibraryRepository(ILibraryReadRepository libraryReadRepository, ILibraryWriteRepository libraryWriteRepository)
         {
             LibraryReadRepository = libraryReadRepository;
-            LibraryWriteRepository = LibraryWriteRepository;
+            LibraryWriteRepository = libraryWriteRepository;
         }
     }
 }

@@ -2,6 +2,7 @@ using MediaStorage.Common;
 using MediaStorage.Common.Interfaces;
 using MediaStorage.Config;
 using MediaStorage.Data;
+using MediaStorage.Data.Entities;
 using MediaStorage.Data.Interfaces.IRepository;
 using MediaStorage.Data.Read;
 using MediaStorage.Data.Repository;
@@ -86,7 +87,8 @@ namespace MediaStorage.Host
 
             container.RegisterType<IMaterialTypeReadRepository, MaterialTypeReadRepositoryExtended>(new ContainerControlledLifetimeManager());
             container.RegisterType<IMaterialTypeWriteRepository, MaterialTypeWriteRepositoryExtended>(new ContainerControlledLifetimeManager());
-            
+
+            container.RegisterType<IRepository<Tag>, Repository<Tag>>(new ContainerControlledLifetimeManager());
             
 
 

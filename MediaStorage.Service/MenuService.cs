@@ -3,9 +3,7 @@ using MediaStorage.Common.ViewModels.Menu;
 using MediaStorage.Config;
 using MediaStorage.Data;
 using MediaStorage.Data.Entities;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace MediaStorage.Service
@@ -95,7 +93,9 @@ namespace MediaStorage.Service
             {
                 var menuItems = _uow.MenuItemRepository.GetAll(w => w.MenuId == id, i => i.UserRoles).ToList();
                 if (menuItems.Count > 0)
+                {
                     _uow.MenuItemRepository.DeleteRange(menuItems);
+                }
             }
             _uow.MenuRepository.Delete(id);
             return GetRemoveResult(_uow.Commit() > 0);
