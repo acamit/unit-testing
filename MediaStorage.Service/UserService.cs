@@ -71,7 +71,7 @@ namespace MediaStorage.Service
                 IsActive = entity.IsActive
             });
 
-           // _mailSender.Send("example@gmail.com", "Added" + entity.Username, "Welcome ! " + entity.Username).Wait();
+            _mailSender.Send("example@gmail.com", "Added" + entity.Username, "Welcome ! " + entity.Username).Wait();
 
             ServiceResult result = new ServiceResult();
 
